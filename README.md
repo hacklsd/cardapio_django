@@ -250,3 +250,4 @@ Não publique a chave de segurança, credenciais, bancos de dados locais,
 arquivos `.env` ou uploads privados no repositório. O arquivo `.gitignore`
 exclui esses artefatos por padrão. Antes de versionar mídias em `static/`,
 confirme que o conteúdo é público e que há autorização para distribuí-lo.
+"# cardapio_django" 
