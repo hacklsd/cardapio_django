@@ -32,6 +32,19 @@ restrita a superusuários.
 - Django Admin disponível separadamente, com o comportamento de permissões
   padrão do Django.
 
+## Capturas de tela
+
+As imagens abaixo foram capturadas da aplicação em execução e mostram as
+páginas públicas em resolução desktop.
+
+### Página inicial
+
+![Página inicial do Cardápio Digital](docs/screenshots/home.png)
+
+### Cardápio
+
+![Página pública do cardápio com categorias e produtos](docs/screenshots/menu.png)
+
 ## Arquitetura
 
 O projeto está organizado em três aplicações Django:
