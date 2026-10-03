@@ -1,0 +1,31 @@
+{% extends "painel/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% block content %}
+<section class="panel-heading">
+    <span class="section-label">CARDÁPIO</span>
+    <h1>Categorias</h1>
+    <a class="panel-button" href="{% url 'painel:categoria_nova' %}">Adicionar categoria</a>
+</section>
+<div class="panel-table-wrap">
+    <table class="panel-table">
+        <thead>
+            <tr><th>Nome</th><th>Ordem</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.nome }}</td>
+                    <td>{{ categoria.ordem }}</td>
+                    <td>{% if categoria.ativa %}Ativa{% else %}Inativa{% endif %}</td>
+                    <td class="panel-actions">
+                        <a href="{% url 'painel:categoria_editar' categoria.pk %}">Editar</a>
+                        <a href="{% url 'painel:categoria_excluir' categoria.pk %}">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">Nenhuma categoria cadastrada.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

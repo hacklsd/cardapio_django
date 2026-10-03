@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Painel administrativo{% endblock %} | Cardápio Digital</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panel.css' %}">
+</head>
+<body>
+    <header>
+        <nav aria-label="Navegação administrativa">
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="{% url 'painel:dashboard' %}">Painel</a>
+                <a href="{% url 'painel:categorias' %}">Categorias</a>
+                <a href="{% url 'painel:produtos' %}">Produtos</a>
+                <a href="{% url 'painel:localizacao' %}">Localização</a>
+                <a href="{% url 'painel:contato' %}">Contato</a>
+                <a href="{% url 'painel:carrossel' %}">Carrossel</a>
+                <a href="{% url 'painel:identidade' %}">Identidade</a>
+                <form method="post" action="{% url 'painel:logout' %}" class="nav-logout">
+                    {% csrf_token %}
+                    <button type="submit">Sair</button>
+                </form>
+            {% else %}
+                <a href="/">Início</a>
+                <a href="/cardapio/">Cardápio</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main class="panel-main">
+        {% if messages %}
+            <div class="panel-messages" aria-live="polite">
+                {% for message in messages %}
+                    <p class="panel-message">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

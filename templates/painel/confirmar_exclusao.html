@@ -1,0 +1,14 @@
+{% extends "painel/base.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<section class="panel-card panel-edit-form">
+    <h1>{{ titulo }}</h1>
+    <p>Confirma a exclusão de <strong>{{ objeto }}</strong>?</p>
+    {% if aviso %}<p class="panel-warning">{{ aviso }}</p>{% endif %}
+    <form method="post" class="panel-actions">
+        {% csrf_token %}
+        <button class="panel-danger" type="submit">Excluir</button>
+        <a href="{{ cancelar_url }}">Cancelar</a>
+    </form>
+</section>
+{% endblock %}

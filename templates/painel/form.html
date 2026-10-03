@@ -1,0 +1,15 @@
+{% extends "painel/base.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<section class="panel-card panel-edit-form">
+    <h1>{{ titulo }}</h1>
+    <form method="post" class="panel-form" {% if multipart %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="panel-actions">
+            <button type="submit">Salvar</button>
+            <a href="{{ cancelar_url }}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

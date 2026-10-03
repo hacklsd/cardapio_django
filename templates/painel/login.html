@@ -1,0 +1,18 @@
+{% extends "painel/base.html" %}
+{% block title %}Acesso administrativo{% endblock %}
+{% block content %}
+<section class="panel-card panel-login">
+    <h1>Acesso administrativo</h1>
+    <p>Entre com uma conta autorizada para gerenciar o cardápio.</p>
+    {% if erro %}<p class="panel-error" role="alert">{{ erro }}</p>{% endif %}
+    <form method="post" class="panel-form">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        <button type="submit">Entrar</button>
+    </form>
+</section>
+{% endblock %}

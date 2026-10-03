@@ -1,0 +1,32 @@
+{% extends "painel/base.html" %}
+{% block title %}Produtos{% endblock %}
+{% block content %}
+<section class="panel-heading">
+    <span class="section-label">CARDÁPIO</span>
+    <h1>Produtos</h1>
+    <a class="panel-button" href="{% url 'painel:produto_novo' %}">Adicionar produto</a>
+</section>
+<div class="panel-table-wrap">
+    <table class="panel-table">
+        <thead>
+            <tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.categoria.nome }}</td>
+                    <td>{% if produto.preco is not None %}R$ {{ produto.preco }}{% else %}—{% endif %}</td>
+                    <td>{% if produto.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+                    <td class="panel-actions">
+                        <a href="{% url 'painel:produto_editar' produto.pk %}">Editar</a>
+                        <a href="{% url 'painel:produto_excluir' produto.pk %}">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">Nenhum produto cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

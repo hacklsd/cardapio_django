@@ -1,0 +1,16 @@
+{% extends "painel/base.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<section class="panel-card panel-edit-form">
+    <h1>{{ titulo }}</h1>
+    <p>O botão aparece nas páginas públicas quando há um número configurado.</p>
+    <form method="post" class="panel-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="panel-actions">
+            <button type="submit">Salvar WhatsApp</button>
+            <a href="{% url 'painel:dashboard' %}">Voltar ao painel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

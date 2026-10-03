@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block title %}Cardápio{% endblock %}
+{% block content %}
+<section class="menu-page">
+<h1>Nosso Cardápio</h1>
+{% for categoria in categorias %}
+<section class="categoria">
+<h2>{{ categoria.nome }}</h2>
+<div class="produtos">
+{% for produto in categoria.produtos.all %}
+{% if produto.ativo %}
+<article class="produto">
+{% if produto.imagem %}
+<img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+{% endif %}
+<h3>{{ produto.nome }}</h3>
+{% if produto.descricao %}
+<p>{{ produto.descricao }}</p>
+{% endif %}
+{% if produto.preco %}
+<strong>R$ {{ produto.preco }}</strong>
+{% endif %}
+</article>
+{% endif %}
+{% endfor %}
+</div>
+</section>
+{% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "painel/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="panel-heading">
+    <span class="section-label">ADMINISTRAÇÃO</span>
+    <h1>Painel do cardápio</h1>
+    <p>Bem-vindo, {{ user.username }}. Gerencie categorias, produtos, preços e imagens.</p>
+</section>
+<section class="panel-grid" aria-label="Resumo do cardápio">
+    <article class="panel-card">
+        <h2>{{ total_categorias }}</h2>
+        <p>Categorias cadastradas</p>
+        <a class="panel-button" href="{% url 'painel:categorias' %}">Gerenciar categorias</a>
+    </article>
+    <article class="panel-card">
+        <h2>{{ total_produtos }}</h2>
+        <p>Produtos cadastrados</p>
+        <a class="panel-button" href="{% url 'painel:produtos' %}">Gerenciar produtos</a>
+    </article>
+    <article class="panel-card">
+        <h2>WhatsApp</h2>
+        <p>Configure o número do botão flutuante exibido no site.</p>
+        <a class="panel-button" href="{% url 'painel:whatsapp' %}">Configurar WhatsApp</a>
+    </article>
+    <article class="panel-card">
+        <h2>Localização</h2>
+        <p>Configure o endereço e o mapa exibidos junto aos contatos.</p>
+        <a class="panel-button" href="{% url 'painel:localizacao' %}">Configurar mapa</a>
+    </article>
+    <article class="panel-card">
+        <h2>Contato</h2>
+        <p>Edite o e-mail, horário de funcionamento e redes sociais.</p>
+        <a class="panel-button" href="{% url 'painel:contato' %}">Editar contatos</a>
+    </article>
+    <article class="panel-card">
+        <h2>Carrossel</h2>
+        <p>Troque as três fotos exibidas na página inicial.</p>
+        <a class="panel-button" href="{% url 'painel:carrossel' %}">Editar fotos</a>
+    </article>
+    <article class="panel-card">
+        <h2>Identidade</h2>
+        <p>Edite o nome e a logo exibidos no cabeçalho do site.</p>
+        <a class="panel-button" href="{% url 'painel:identidade' %}">Editar identidade</a>
+    </article>
+</section>
+{% endblock %}

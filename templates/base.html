@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cardápio Digital{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav class="site-nav" aria-label="Navegação principal">
+            <a class="site-brand" href="/" aria-label="{{ restaurant_name }} - início">
+                {% if restaurant_logo_url %}
+                    <img class="site-brand-logo" src="{{ restaurant_logo_url }}" alt="">
+                {% else %}
+                    <span class="site-brand-placeholder" aria-hidden="true">{{ restaurant_name|first|upper }}</span>
+                {% endif %}
+                <span class="site-brand-name">{{ restaurant_name }}</span>
+            </a>
+            <div class="site-nav-links">
+            <a href="/">Início</a>
+            <a href="/cardapio/">Cardápio</a>
+            {% if restaurant_whatsapp or restaurant_instagram_url or restaurant_facebook_url or restaurant_email or restaurant_opening_hours %}
+            <a href="#contato">Contato</a>
+            {% endif %}
+            {% if restaurant_address and restaurant_maps_url %}
+            <a href="#mapa">Como chegar</a>
+            {% endif %}
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+
+    </main>
+    {% if restaurant_whatsapp or restaurant_instagram_url or restaurant_facebook_url or restaurant_email or restaurant_opening_hours or restaurant_address and restaurant_maps_url %}
+    <footer class="site-footer">
+        <section id="contato" class="footer-contact" aria-labelledby="footer-contact-title">
+            <div class="section-heading">
+                <span class="section-label">CONTATO</span>
+                <h2 id="footer-contact-title">Fale conosco</h2>
+                <p>Estamos esperando por você.</p>
+            </div>
+
+            <div class="footer-info-grid">
+                {% if restaurant_whatsapp or restaurant_instagram_url or restaurant_facebook_url or restaurant_email or restaurant_opening_hours %}
+                <article class="contact-card">
+                    <span class="contact-icon">Canais de atendimento</span>
+                    <h3>Fale com nossa equipe</h3>
+                    <div class="contact-details">
+                    {% if restaurant_whatsapp %}
+                        <a
+                            class="contact-option"
+                            href="https://wa.me/{{ restaurant_whatsapp }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span>
+                                <strong>WhatsApp</strong>
+                                <small>Atendimento e reservas</small>
+                            </span>
+                            <span class="contact-action">Conversar <span aria-hidden="true">↗</span></span>
+                        </a>
+                    {% endif %}
+                    {% if restaurant_email %}
+                        <a class="contact-option" href="mailto:{{ restaurant_email }}">
+                            <span>
+                                <strong>E-mail</strong>
+                                <small>{{ restaurant_email }}</small>
+                            </span>
+                            <span class="contact-action">Enviar <span aria-hidden="true">↗</span></span>
+                        </a>
+                    {% endif %}
+                    {% if restaurant_opening_hours %}
+                        <div class="contact-hours">
+                            <strong>Horário de funcionamento</strong>
+                            <p>{{ restaurant_opening_hours|linebreaksbr }}</p>
+                        </div>
+                    {% endif %}
+                    </div>
+                    {% if restaurant_instagram_url or restaurant_facebook_url %}
+                    <div class="social-links" aria-label="Redes sociais">
+                    {% if restaurant_instagram_url %}
+                        <a
+                            class="social-button"
+                            href="{{ restaurant_instagram_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                class="social-icon instagram-icon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <rect x="3" y="3" width="18" height="18" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle class="instagram-icon-dot" cx="18" cy="6" r="1" />
+                            </svg>
+                            Instagram <span aria-hidden="true">↗</span>
+                        </a>
+                    {% endif %}
+                    {% if restaurant_facebook_url %}
+                        <a
+                            class="social-button"
+                            href="{{ restaurant_facebook_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Facebook <span aria-hidden="true">↗</span>
+                        </a>
+                    {% endif %}
+                    </div>
+                    {% endif %}
+                </article>
+                {% endif %}
+                {% if restaurant_address and restaurant_maps_url %}
+                <section id="mapa" class="location-panel" aria-labelledby="location-title">
+                    <iframe
+                        class="location-map"
+                        src="{{ restaurant_map_embed_url }}"
+                        title="Mapa de localização do restaurante"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                    <div class="location-address">
+                        <span class="contact-icon">Como chegar</span>
+                        <h3 id="location-title">{{ restaurant_name }}</h3>
+                        <p>{{ restaurant_address|linebreaksbr }}</p>
+                        <a
+                            class="directions-link"
+                            href="{{ restaurant_maps_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >Abrir no Google Maps <span aria-hidden="true">↗</span></a>
+                    </div>
+                </section>
+                {% endif %}
+                </div>
+        </section>
+    </footer>
+    {% endif %}
+    {% if restaurant_whatsapp %}
+    <a
+        class="whatsapp-float"
+        href="https://wa.me/{{ restaurant_whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Fale conosco pelo WhatsApp"
+    >
+        <svg
+            class="whatsapp-float-icon"
+            viewBox="0 0 220 220"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <defs>
+                <linearGradient id="whatsapp-button-outer" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#20c875" />
+                    <stop offset="1" stop-color="#0d9e55" />
+                </linearGradient>
+                <linearGradient id="whatsapp-button-inner" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#63d26a" />
+                    <stop offset="1" stop-color="#20b865" />
+                </linearGradient>
+            </defs>
+            <circle cx="110" cy="110" r="105" fill="url(#whatsapp-button-outer)" />
+            <circle cx="110" cy="110" r="91" fill="url(#whatsapp-button-inner)" />
+            <path
+                d="M110 57a55 55 0 0 0-47 83l-9 29 30-8a55 55 0 1 0 26-104Z"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="10"
+            />
+            <path
+                d="M91 84c-3-1-6 0-8 3l-5 7c-3 4-2 10 0 15 7 16 20 29 37 36 6 3 12 2 16-1l7-6c3-2 3-6 1-9l-10-9c-3-2-6-2-8 1l-5 6c-9-4-15-11-19-19l5-5c2-2 3-5 1-8l-8-16c-1-2-2-4-4-4Z"
+                fill="#fff"
+            />
+        </svg>
+        <span class="visually-hidden">Fale conosco pelo WhatsApp</span>
+    </a>
+    {% endif %}
+    {% block extra_js %}
+    {% endblock %}
+
+    <div class="site-credit">
+        Desenvolvido por Victor Lopes - Soluções Digitais
+    </div>
+</body>
+
+</html>

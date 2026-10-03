@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block title %}{{ restaurant_name }} | Início{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-content">
+        <span class="hero-label">BEM-VINDO</span>
+
+        <h1>
+            Sabor que merece
+            <span>ser lembrado.</span>
+        </h1>
+
+        <p>
+            Uma experiência gastronômica preparada para você,
+            com ingredientes selecionados e muito sabor.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/cardapio/" class="btn btn-primary">
+                Ver cardápio
+            </a>
+
+            {% if restaurant_whatsapp or restaurant_instagram_url %}
+                <a href="#contato" class="btn btn-secondary">
+                    Fale conosco
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+
+<!-- CONCEITO -->
+<section class="concept">
+
+    <div class="section-content">
+
+        <span class="section-label">
+            NOSSO CONCEITO
+        </span>
+
+        <h2>
+            Mais que uma refeição.
+            Uma experiência.
+        </h2>
+
+        <p>
+            Nosso espaço foi criado para proporcionar bons momentos,
+            reunir pessoas e oferecer uma experiência gastronômica
+            especial.
+        </p>
+
+        <p>
+            Conheça nosso ambiente, descubra nosso cardápio e
+            aproveite cada momento.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- GALERIA / CARROSSEL -->
+<section class="gallery">
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            NOSSO ESPAÇO
+        </span>
+
+        <h2>
+            Conheça nosso ambiente
+        </h2>
+
+    </div>
+
+
+    <div class="carousel">
+
+        <div class="carousel-track">
+
+            <div class="slide active">
+                <img
+                    src="{{ restaurant_carousel_images.0 }}"
+                    alt="Ambiente interno de restaurante com mesas preparadas"
+                >
+            </div>
+
+            <div class="slide">
+                <img
+                    src="{{ restaurant_carousel_images.1 }}"
+                    alt="Carne grelhada servida em tábua com acompanhamentos"
+                >
+            </div>
+
+            <div class="slide">
+                <img
+                    src="{{ restaurant_carousel_images.2 }}"
+                    alt="Prato preparado sendo servido à mesa"
+                >
+            </div>
+
+        </div>
+
+        <button class="carousel-button prev" type="button">
+            &#10094;
+        </button>
+
+        <button class="carousel-button next" type="button">
+            &#10095;
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CTA CARDÁPIO -->
+<section class="menu-cta">
+
+    <div>
+
+        <span class="section-label">
+            FIQUE À VONTADE
+        </span>
+
+        <h2>
+            Descubra nosso cardápio
+        </h2>
+
+        <p>
+            Confira nossas opções e escolha seus favoritos.
+        </p>
+
+        <a href="/cardapio/" class="btn btn-primary">
+            Ver cardápio
+        </a>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+const slides = document.querySelectorAll(".slide");
+
+const previousButton =
+    document.querySelector(".prev");
+
+const nextButton =
+    document.querySelector(".next");
+
+let currentSlide = 0;
+
+
+function showSlide(index) {
+
+    slides.forEach((slide) => {
+        slide.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+}
+
+
+function nextSlide() {
+
+    currentSlide++;
+
+    if (currentSlide >= slides.length) {
+        currentSlide = 0;
+    }
+
+    showSlide(currentSlide);
+}
+
+
+function previousSlide() {
+
+    currentSlide--;
+
+    if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+    }
+
+    showSlide(currentSlide);
+}
+
+
+nextButton.addEventListener(
+    "click",
+    nextSlide
+);
+
+
+previousButton.addEventListener(
+    "click",
+    previousSlide
+);
+
+
+// Troca automática
+setInterval(
+    nextSlide,
+    5000
+);
+
+</script>
+
+{% endblock %}
